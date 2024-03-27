@@ -16,7 +16,7 @@ jobs:
         run: docker build -t creativehub .
 
       - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GH_REGISTRY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Tag Docker image
         run: docker tag creativehub ghcr.io/GitGuru4DevOps-Venkatesh/creativehub:latest
