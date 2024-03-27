@@ -1,4 +1,4 @@
-name: Build and Deploy
+oname: Build and Deploy
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         run: echo "${{ secrets.GH_REGISTRY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Tag Docker image
-        run: docker tag creativehub ghcr.io/GitGuru4DevOps-Venkatesh/creativehub:latest
+        run: docker tag creativehub ghcr.io/venkateshdocker1/creativehub:latest
 
       - name: Push Docker image to GitHub Container Registry
         run: docker push ghcr.io/GitGuru4DevOps-Venkatesh/creativehub:latest
