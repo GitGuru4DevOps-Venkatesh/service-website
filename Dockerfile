@@ -1,10 +1,6 @@
 # Use the official nginx base image
 FROM nginx:latest
 
-# Install OpenJDK 17 (Java) and Maven Latest
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jre-headless maven
-
 # Copy your application files to the appropriate location
 COPY . /usr/share/nginx/html
 
