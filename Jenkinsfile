@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 80:80 responsive-portfolio'
+                
             }
         }
     }
