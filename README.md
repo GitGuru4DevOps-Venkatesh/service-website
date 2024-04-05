@@ -51,12 +51,12 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
                }
                stage('Build') {
                    steps {
-                       sh 'docker build -t responsive-portfolio .'
+                       sh 'docker build -t service-website .'
                    }
                }
                stage('Deploy') {
                    steps {
-                       sh 'docker run -d -p 80:80 responsive-portfolio'
+                       sh 'docker run -d -p 80:80 service-website'
                    }
                }
            }
@@ -79,3 +79,38 @@ Source: Conversation with Bing, 05/04/2024
 (5) undefined. https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key.
 (6) undefined. https://pkg.jenkins.io/debian-stable.
 (7) en.wikipedia.org. https://en.wikipedia.org/wiki/Jenkins_(software).
+---------------------------------
+If you've made changes directly on GitHub (for example, by editing a file in the GitHub web interface or by merging a pull request), you will need to fetch those changes into your local repository to see them reflected in your cloned repository.
+
+Here's what you need to do:
+
+1. **Fetch Changes**: In your local repository, fetch the changes from the remote repository. This updates your local repository with the changes made on GitHub.
+
+   ```bash
+   git fetch origin
+   ```
+
+2. **Merge Changes**: After fetching, you may need to merge the changes into your local branch. If you're not currently on the branch where the changes were made, switch to that branch first.
+
+   ```bash
+   git checkout your_branch_name
+   ```
+
+   Then merge the changes:
+
+   ```bash
+   git merge origin/your_branch_name
+   ```
+
+   This command merges the changes from the remote branch into your current local branch.
+
+3. **Review Changes**: Once you've merged the changes, review them to ensure everything looks correct.
+
+4. **(Optional) Push Changes**: If you want to push these changes to another remote repository or if you've made additional changes locally, you can push them to the remote repository.
+
+   ```bash
+   git push origin your_branch_name
+   ```
+
+With these steps, the changes you made directly on GitHub should now be reflected in your cloned repository. Remember to replace `your_branch_name` with the name of the branch where the changes were made.
+
