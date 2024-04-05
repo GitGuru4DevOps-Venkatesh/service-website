@@ -1,7 +1,7 @@
 # Use the official nginx base image
 FROM nginx:latest
 
-# Install OpenJDK 17 (Java) and Maven
+# Install OpenJDK 17 (Java) and Maven Latest
 RUN apt-get update && \
     apt-get install -y openjdk-17-jre-headless maven
 
