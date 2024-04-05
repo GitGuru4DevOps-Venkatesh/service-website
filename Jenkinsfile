@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t responsive-portfolio .'
+                sh 'docker build -t service-website .'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 80:80 responsive-portfolio'
+                sh 'docker run -d -p 80:80 service-website'
             }
         }
         stage('Publish to Nexus') {
