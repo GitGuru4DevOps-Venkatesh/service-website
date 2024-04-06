@@ -35,11 +35,12 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
    - In the "Payload URL" field, paste your Jenkins environment URL. Append `/github-webhook/` to the URL.
    - Select "application/json" as the content type and leave the Secret field empty.
 
-4. **Write the CI/CD Pipeline**:
+4. Write the CI/CD Pipeline:
    - In your Jenkins job configuration, define the pipeline:
      - If using a private repository, configure the OAuth token in Jenkins credentials.
      - Create a Jenkinsfile (or use a scripted pipeline) that defines your build and deployment steps.
      - For example:
+       
        ```
        pipeline {
     agent any
@@ -51,12 +52,12 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
         }
         stage('Build') {
             steps {
-                sh 'docker build -t responsive-portfolio .'
+                sh 'docker build -t service-website .'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 80:80 responsive-portfolio'
+                sh 'docker run -d -p 80:80 service-website'
             }
         }
         stage('Publish to Nexus') {
@@ -68,8 +69,8 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
         }
     }
 }
-```
-5. **Test the Pipeline**:
+      ```
+5. Test the Pipeline:
    - Manually trigger the job and ensure the web app is deployed.
    - Wait for periodic builds and verify the deployment.
    - Make changes to the web app, commit, and check if Jenkins automatically triggers a build.
