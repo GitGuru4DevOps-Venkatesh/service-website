@@ -41,7 +41,6 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
      - Create a Jenkinsfile (or use a scripted pipeline) that defines your build and deployment steps.
      - For example:
        
-       ```
        pipeline {
     agent any
     stages {
@@ -69,7 +68,6 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
         }
     }
 }
-```
 
 5. **Test the Pipeline**:
    - Manually trigger the job and ensure the web app is deployed.
