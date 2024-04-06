@@ -21,6 +21,8 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
      - Install Docker (if not already installed): `sudo apt install docker.io`
      - Add your user to the Docker group: `sudo usermod -a -G docker $USER`
      - Make Docker socket accessible: `sudo chmod 777 /var/run/docker.sock`
+    
+     - docker run -d --name my-jenkins-container -p 8080:8080 jenkins/jenkins:lts
 
 2. **Create a Jenkins Job**:
    - In Jenkins, create a new job:
