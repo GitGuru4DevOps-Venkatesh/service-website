@@ -40,7 +40,7 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
      - If using a private repository, configure the OAuth token in Jenkins credentials.
      - Create a Jenkinsfile (or use a scripted pipeline) that defines your build and deployment steps.
      - For example:
-       
+       ```
        pipeline {
     agent any
     stages {
@@ -68,7 +68,7 @@ Certainly! Let's set up Jenkins to automatically deploy changes from your GitHub
         }
     }
 }
-
+```
 5. **Test the Pipeline**:
    - Manually trigger the job and ensure the web app is deployed.
    - Wait for periodic builds and verify the deployment.
