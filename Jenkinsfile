@@ -23,7 +23,7 @@ pipeline {
                     }
                 }
                 // Run the new container
-                sh 'docker run -d -p 80:80 service-website'
+                sh 'docker run -d -p 80:80 -v /path/to/your/source/code:/usr/share/nginx/html service-website'
             }
         }
     }
