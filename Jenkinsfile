@@ -3,8 +3,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone the GitHub repository
                 checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'docker build -t service-website .'
             }
         }
         stage('Deploy') {
@@ -18,8 +22,8 @@ pipeline {
                         sh "docker rm $containerId"
                     }
                 }
-                // Run the new container with volume mount
-                sh 'docker run -d -p 80:80 -v /service-website:/usr/share/nginx/html nginx:latest'
+                // Run the new container
+                sh 'docker run -d -p 80:80 -v /service-website:/usr/share/nginx/html service-website'
             }
         }
     }
