@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('Update Website') {
+            steps {
+                // Pull the latest changes from the repository
+                sh 'git pull'
+
+                // Restart the Docker container to apply the changes
+                script {
+                    def containerId = sh(script: 'docker ps -q --filter "name=service-website"', returnStdout: true).trim()
+                    if (containerId) {
+                        sh "docker restart $containerId"
+                    }
+                }
+            }
+        }
+    }
+}
+
