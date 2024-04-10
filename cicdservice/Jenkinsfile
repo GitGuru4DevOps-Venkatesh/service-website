@@ -1,10 +1,16 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the 'main' branch explicitly
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/GitGuru4DevOps-Venkatesh/service-website.git']]])
+            }
+        }
         stage('Update Website') {
             steps {
                 // Pull the latest changes from the repository
-                sh 'git pull'
+                sh 'git pull origin main'
 
                 // Restart the Docker container to apply the changes
                 script {
@@ -17,4 +23,3 @@ pipeline {
         }
     }
 }
-
