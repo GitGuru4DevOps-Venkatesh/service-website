@@ -1,37 +1,30 @@
 pipeline {
   agent any
 
+  triggers {
+    // Manual trigger instead of automatic triggering
+    manual {}
+  }
+
   stages {
     stage('Checkout') {
       steps {
-        // Checkout the code from the Git repository (using scm for brevity)
         checkout scm
       }
     }
 
-    stage('Build') {
+    stage('Build & Deploy') {
       steps {
-        // Build the Docker image (assuming Dockerfile is present in the root directory)
-        script {
-          docker.build(imageName: 'service-website') // Using imageName for clarity
-        }
-      }
-    }
+        script """
+        if [ "$(git diff --cached --name-only)" != "" ]; then
+          echo "Changes detected! Building Docker image..."
+          docker.image('service-website').build()
+        else
+          echo "No code changes detected. Skipping build."
+        fi
 
-    stage('Deploy') {
-      steps {
-        // Check if the container is already running
-        script {
-          def containerId = sh(script: 'docker ps -q --filter "name=service-website"', returnStdout: true).trim()
-          if (containerId) {
-            // Stop and remove the existing container
-            sh "docker stop $containerId"
-            sh "docker rm $containerId"
-          }
-        }
-
-        // Run the new container with port mapping and volume mounting
-        sh 'docker run -d -p 80:80 -v $PWD:/usr/share/nginx/html service-website'
+        # Assuming the container runs on port 80 and uses the current directory for content
+        sh 'docker run -d -p 80:80 . service-website'
       }
     }
   }
