@@ -1,32 +1,25 @@
 pipeline {
-  agent any
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the 'main' branch explicitly
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/GitGuru4DevOps-Venkatesh/service-website.git']]])
+            }
+        }
+        stage('Update Website') {
+            steps {
+                // Pull the latest changes from the repository
+                sh 'git pull origin main'
 
-  triggers {
-    // Manual trigger instead of automatic triggering
-    manual {}
-  }
-
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
+                // Restart the Docker container to apply the changes
+                script {
+                    def containerId = sh(script: 'docker ps -q --filter "name=service-website"', returnStdout: true).trim()
+                    if (containerId) {
+                        sh "docker restart $containerId"
+                    }
+                }
+            }
+        }
     }
-
-    stage('Build & Deploy') {
-      steps {
-        script """
-        if [ "$(git diff --cached --name-only)" != "" ]; then
-          echo "Changes detected! Building Docker image..."
-          docker.image('service-website').build()
-        else
-          echo "No code changes detected. Skipping build."
-        fi
-        """
-
-        // Assuming the container runs on port 80 and uses the current directory for content
-        sh 'docker run -d -p 80:80 . service-website'
-      }
-    }
-  }
 }
